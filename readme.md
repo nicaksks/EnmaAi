@@ -10,6 +10,7 @@
 * **q** - Anime name;
 * **p** - Page size;
 * **e** - Episode;
+* **d** - 0~6 (day of the week)
 
 # Credits
 * Todos os créditos vão para a equipe do **[Anroll](https://www.anroll.net/)**<br>
