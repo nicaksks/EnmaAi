@@ -22,6 +22,7 @@ export type Data = {
     synopsis: string;
     total_eps: number;
     gen_id: string;
+    image?: string;
     friendly_path: string;
     generic_path: string;
 }
@@ -29,15 +30,17 @@ export type Data = {
 class Search extends Enma {
 
     public async get(name: string): Promise<Data[]> {
-        try {
-            const response = await this.client({ method: 'GET', endpoint: `https://api-search.anroll.net/data?q=${name}` });
-            const { data }: Response = await response.json();
+        const response = await this.client({ method: 'GET', endpoint: `https://api-search.anroll.net/data?q=${name}` });
+        const { data }: Response = await response.json();
 
-            if (!data.length) throw new EnmaError(404, 'anime.not.found');
-            return data
-        } catch (e) {
-            throw new EnmaError()
-        }
+        if (!data.length) throw new EnmaError(404, 'anime.not.found');
+
+        return this.image(data);
+    }
+
+    private image(data: Data[]): Data[] {
+        data.forEach((i: Data) => i.image = `https://static.anroll.net/images/animes/capas/${i.slug}.jpg`);
+        return data;
     }
 
 }
