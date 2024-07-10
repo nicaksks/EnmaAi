@@ -42,15 +42,25 @@ type Info = {
 class Anime extends Enma {
 
     public async get(id: number, page: number = 1): Promise<Response> {
-        try {
-            const response = await this.client({ method: 'GET', endpoint: `https://apiv3-prd.anroll.net/animes/${id}/episodes?page=${page}&order=desc` });
-            const data: Response = await response.json();
-    
-            if (!data.data.length) throw new EnmaError(404, 'anime.not.found');
-            return data
-        } catch(e: any) {
-            throw new EnmaError()
-        }
+        const response = await this.client({ method: 'GET', endpoint: `https://apiv3-prd.anroll.net/animes/${id}/episodes?page=${page}&order=desc` });
+        const data: Response = await response.json();
+
+        if (!data.data.length) throw new EnmaError(404, 'anime.not.found');
+        return this.data(data);
+    }
+
+    private data(data: Response): Response {
+        return this.title(this.sinopse(data))
+    }
+
+    private title(data: Response): Response {
+        data.data.forEach((i: Data) => i.titulo_episodio = i.titulo_episodio.replace('N/A', 'Sem título'));
+        return data
+    }
+
+    private sinopse(data: Response): Response {
+        data.data.forEach((i: Data) => i.sinopse_episodio = i.sinopse_episodio.replace('', 'Episódio sem sinopse'));
+        return data;
     }
 
 }
