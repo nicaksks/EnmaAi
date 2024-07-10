@@ -19,7 +19,7 @@ class Download extends Enma {
             this.dir(`${this.PATH}/${name}`, episode, content)
 
         } catch (e: any) {
-            throw new EnmaError(404, 'EPISODE NOT FOUND')
+            throw new EnmaError(404, 'episode.not.found')
         }
     }
 

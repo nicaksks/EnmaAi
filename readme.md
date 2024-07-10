@@ -12,6 +12,11 @@
 * **e** - Episode;
 * **d** - 0~6 (day of the week)
 
+# Errors
+* **anime.not.found**
+* **episode.not.found**
+* **unknown**
+
 # Credits
 * Todos os créditos vão para a equipe do **[Anroll](https://www.anroll.net/)**<br>
 Fiz esse projetinho apenas para passar o tempo
