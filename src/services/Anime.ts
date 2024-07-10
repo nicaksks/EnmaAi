@@ -62,7 +62,7 @@ class Anime extends Enma {
     private newValues(data: Response): Response {
         data.data.forEach((i: Data) => {
             i.titulo_episodio = i.titulo_episodio.replace('N/A', 'Sem título')
-            i.sinopse_episodio = i.sinopse_episodio.replace('', 'Episódio sem sinopse')
+            i.sinopse_episodio =  !i.sinopse_episodio.length  ? 'Episódio sem sinopse' : i.sinopse_episodio
             i.link = `${this._DOMAIN}/episode/${i.anime.slug_serie}/${i.n_episodio}`
         });
         return data
