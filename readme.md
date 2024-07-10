@@ -1,5 +1,6 @@
 | METHOD  | GROUP    | ENDPOINT     | QUERY           |  OPTIONAL    |
 | ------  | -------- | ------------ | --------------- | ------------ |
+| **GET** | **/api** | **/episode/:anime/:episode**   ||             |
 | **GET** | **/api** | **/release** |                 |              |
 | **GET** | **/api** | **/calendar**| **?d=[int]**    |              |
 | **GET** | **/api** | **/anime**   | **?q=[string]** | **&p=[int]** |

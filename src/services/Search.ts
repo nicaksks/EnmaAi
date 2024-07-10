@@ -31,16 +31,25 @@ class Search extends Enma {
 
     public async get(name: string): Promise<Data[]> {
         const response = await this.client({ method: 'GET', endpoint: `https://api-search.anroll.net/data?q=${name}` });
-        const { data }: Response = await response.json(); 
+        const { data }: Response = await response.json();
 
         if (!data.length) throw new EnmaError(404, 'anime.not.found');
 
-        return this.image(data);
+        return this.imageUrl(data);
     }
 
-    private image(data: Data[]): Data[] {
-        data.forEach((i: Data) => i.image = `https://static.anroll.net/images/animes/capas/${i.slug}.jpg`);
+    private imageUrl(data: Data[]): Data[] {
+        data.forEach((i: Data) => i.image = this.imageType(i.type, i.slug));
         return data;
+    }
+
+    private imageType(type: string, slug: string, format: string = 'jpg'): string {
+        const types: Record<string, string> = {
+            'anime': 'animes',
+            'movie': 'filmes'
+        };
+
+        return types[type] ? `https://static.anroll.net/images/${types[type]}/capas/${slug}.${format}` : 'https://i.imgur.com/sK5DKhL.png'
     }
 
 }

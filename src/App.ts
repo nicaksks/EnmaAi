@@ -9,9 +9,14 @@ class App {
 
     constructor() {
         this._app = express()
-        this.middlewares().group()
+        this.proxy().middlewares().group()
     }
     
+    private proxy(): this {
+        this._app.set('trust proxy', 1)
+        return this;
+    }
+
     private middlewares(): this {
         this._app.use(cors)
         this._app.use(rateLimit())

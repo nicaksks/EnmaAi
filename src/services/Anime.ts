@@ -1,5 +1,6 @@
 import EnmaError from "@src/Errors/Enma";
 import Enma from "./Client";
+import Download from "./Download";
 
 export type Response = {
     code: number;
@@ -41,15 +42,16 @@ type Info = {
 
 class Anime extends Enma {
 
-    private anime: string = '';
+    private readonly _DOMAIN: string = Bun.env.DOMAIN || `http://localhost:${Bun.env.PORT || 3000}`;
 
-    public async get(anime: string, id: number, page: number = 1): Promise<Response> {
+    public async get(id: number, page: number = 1): Promise<Response> {
         const response = await this.client({ method: 'GET', endpoint: `https://apiv3-prd.anroll.net/animes/${id}/episodes?page=${page}&order=desc` });
         const data: Response = await response.json();
 
         if (!data.data.length) throw new EnmaError(404, 'anime.not.found');
 
-        this.anime = anime;
+        this.download(data.data);
+
         return this.data(data);
     }
 
@@ -61,9 +63,13 @@ class Anime extends Enma {
         data.data.forEach((i: Data) => {
             i.titulo_episodio = i.titulo_episodio.replace('N/A', 'Sem título')
             i.sinopse_episodio = i.sinopse_episodio.replace('', 'Episódio sem sinopse')
-            i.link = `https://cdn-zenitsu-gamabunta.b-cdn.net/cf/hls/animes/${this.anime}/${i.n_episodio}.mp4/media-1/stream.m3u8`
+            i.link = `${this._DOMAIN}/episode/${i.anime.slug_serie}/${i.n_episodio}`
         });
         return data
+    }
+
+    private download(data: Data[]): void {
+        data.forEach(async (i: Data) => await Download.now(i.anime.slug_serie, i.n_episodio, `https://cdn-zenitsu-gamabunta.b-cdn.net/cf/hls/animes/${i.anime.slug_serie}/${i.n_episodio}.mp4/media-1/stream.m3u8`))
     }
 }
 
