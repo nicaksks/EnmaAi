@@ -31,7 +31,7 @@ class Search extends Enma {
 
     public async get(name: string): Promise<Data[]> {
         const response = await this.client({ method: 'GET', endpoint: `https://api-search.anroll.net/data?q=${name}` });
-        const { data }: Response = await response.json();
+        const { data }: Response = await response.json(); 
 
         if (!data.length) throw new EnmaError(404, 'anime.not.found');
 
