@@ -50,17 +50,15 @@ class Anime extends Enma {
     }
 
     private data(data: Response): Response {
-        return this.title(this.sinopse(data))
+        return this.titleAndSinopse(data)
     }
 
-    private title(data: Response): Response {
-        data.data.forEach((i: Data) => i.titulo_episodio = i.titulo_episodio.replace('N/A', 'Sem título'));
+    private titleAndSinopse(data: Response): Response {
+        data.data.forEach((i: Data) => {
+            i.titulo_episodio = i.titulo_episodio.replace('N/A', 'Sem título')
+            i.sinopse_episodio = i.sinopse_episodio.replace('', 'Episódio sem sinopse')
+        });
         return data
-    }
-
-    private sinopse(data: Response): Response {
-        data.data.forEach((i: Data) => i.sinopse_episodio = i.sinopse_episodio.replace('', 'Episódio sem sinopse'));
-        return data;
     }
 
 }
