@@ -1,4 +1,4 @@
-import EnmaError from "@back/Errors/Enma";
+import EnmaError from "@src/Errors/Enma";
 import Enma from "./Client";
 
 type Response = {

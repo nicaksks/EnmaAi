@@ -1,4 +1,4 @@
-import EnmaError from "@back/Errors/Enma";
+import EnmaError from "@src/Errors/Enma";
 import Enma from "./Client";
 
 export type Response = {
@@ -41,26 +41,30 @@ type Info = {
 
 class Anime extends Enma {
 
-    public async get(id: number, page: number = 1): Promise<Response> {
+    private anime: string = '';
+
+    public async get(anime: string, id: number, page: number = 1): Promise<Response> {
         const response = await this.client({ method: 'GET', endpoint: `https://apiv3-prd.anroll.net/animes/${id}/episodes?page=${page}&order=desc` });
         const data: Response = await response.json();
 
         if (!data.data.length) throw new EnmaError(404, 'anime.not.found');
+
+        this.anime = anime;
         return this.data(data);
     }
 
     private data(data: Response): Response {
-        return this.titleAndSinopse(data)
+        return this.newValues(data)
     }
 
-    private titleAndSinopse(data: Response): Response {
+    private newValues(data: Response): Response {
         data.data.forEach((i: Data) => {
             i.titulo_episodio = i.titulo_episodio.replace('N/A', 'Sem título')
             i.sinopse_episodio = i.sinopse_episodio.replace('', 'Episódio sem sinopse')
+            i.link = `https://cdn-zenitsu-gamabunta.b-cdn.net/cf/hls/animes/${this.anime}/${i.n_episodio}.mp4/media-1/stream.m3u8`
         });
         return data
     }
-
 }
 
 export default new Anime

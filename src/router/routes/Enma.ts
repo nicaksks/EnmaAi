@@ -1,11 +1,11 @@
 import type { Request, Response } from 'express';
-import Path from '@back/decorators/Path';
-import LastReleases from '@back/services/LastReleases';
-import Search from '@back/services/Search';
-import anime from '@back/utils/anime';
-import Calendar from '@back/services/Calendar';
-import days from '@back/controllers/days';
-import query from '@back/controllers/query';
+import Path from '@src/decorators/Path';
+import LastReleases from '@src/services/LastReleases';
+import Search from '@src/services/Search';
+import anime from '@src/utils/anime';
+import Calendar from '@src/services/Calendar';
+import days from '@src/controllers/days';
+import query from '@src/controllers/query';
 
 export default class Enma {
 

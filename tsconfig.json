@@ -26,12 +26,9 @@
     // Config
     "experimentalDecorators": true,
     "paths": {
-      "@back/*": [
-        "./back/*"
-      ],
-      "@front/*": [
-        "./front/*"
-      ],
+      "@src/*": [
+        "./src/*"
+      ]
     }
   }
 }

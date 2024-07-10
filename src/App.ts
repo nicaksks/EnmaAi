@@ -1,17 +1,15 @@
 import express, { urlencoded, type Application } from 'express';
 import cors from './middlewares/cors';
 import rateLimit from './middlewares/rateLimit';
-import front from '@front/router/group';
-import back from './router/group';
+import router from './router/group';
 
 class App {
 
     public _app: Application;
-    private _swagger: any;
 
     constructor() {
         this._app = express()
-        this.middlewares().ejs().group()
+        this.middlewares().group()
     }
     
     private middlewares(): this {
@@ -22,14 +20,8 @@ class App {
         return this;
     }
     
-    private ejs(): this {
-        this._app.set('view engine', 'ejs')
-        return this;
-    }
-
     private group(): this {
-        this._app.use(back)
-        this._app.use(front)
+        this._app.use(router)
         return this;
     }
 

@@ -1,4 +1,4 @@
-import Search, { type Data } from '@back/services/Search';
+import Search, { type Data } from '@src/services/Search';
 
 export default async (query: string): Promise<number> => {
     const title = query.toLowerCase();
