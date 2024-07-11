@@ -27,6 +27,7 @@ type Data = {
     titulo_episodio: string;
     sinopse_episodio: string;
     link: string;
+    thumbnail?: string | null;
     v_stream?: any;
     aviso: string;
     generate_id: string;
@@ -64,6 +65,7 @@ class Anime extends Enma {
             i.titulo_episodio = i.titulo_episodio.replace('N/A', 'Sem título')
             i.sinopse_episodio =  !i.sinopse_episodio.length  ? 'Episódio sem sinopse' : i.sinopse_episodio
             i.link = `${this._DOMAIN}/episode/${i.anime.slug_serie}/${i.n_episodio}`
+            i.thumbnail = `https://static.anroll.net/images/animes/screens/${i.anime.slug_serie}/${i.n_episodio}.jpg`
         });
         return data
     }
