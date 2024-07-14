@@ -46,7 +46,7 @@ class Anime extends Enma {
     private readonly _DOMAIN: string = Bun.env.DOMAIN || `http://localhost:${Bun.env.PORT || 3000}`;
 
     public async get(id: number, page: number = 1): Promise<Response> {
-        const response = await this.client({ method: 'GET', endpoint: `https://apiv3-prd.anroll.net/animes/${id}/episodes?page=${page}&order=desc` });
+        const response = await this.client({ method: 'GET', endpoint: `https://apiv3-prd.anroll.net/animes/${id}/episodes?page=${page}&order=asc` });
         const data: Response = await response.json();
 
         if (!data.data.length) throw new EnmaError(404, 'anime.not.found');
