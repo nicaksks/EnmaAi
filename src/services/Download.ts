@@ -14,7 +14,7 @@ class Download extends Enma {
             const response = await this.client({ method: 'GET', endpoint });
             const content = await response.text();
 
-            if (response.status != 200) throw new EnmaError(response.status, response.statusText)
+            if (response.status != 200) return;
             this.dir(`${this.PATH}/${name}`, episode, content)
         } catch (e: any) {
             throw new EnmaError(404, 'episode.not.found')
