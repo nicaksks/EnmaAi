@@ -25,6 +25,7 @@ export type Data = {
     image?: string;
     friendly_path: string;
     generic_path: string;
+    link?: string;
 }
 
 class Search extends Enma {

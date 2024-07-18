@@ -1,11 +1,37 @@
 import Search, { type Data } from '@src/services/Search';
 import slug from './slug';
+import EnmaError from '@src/Errors/Enma';
 
-export default async (query: string): Promise<number> => {
+export type Response = {
+    type: string;
+    slug: string;
+    id: number;
+}
+
+export type A = {
+    response?: Response
+    data?: Data
+}
+
+export default async (query: string): Promise<A> => {
 
     const title = query.toLowerCase();
-    const anime = await Search.get(query);
-    const id = anime.find((i: Data) => i.title.toLowerCase() === title || i.slug === slug(title))?.id;
+    const getAnime = await Search.get(query);
+    const anime = getAnime.find((i: Data) => i.title.toLowerCase() === title || i.slug === slug(title));
 
-    return id || 0;
+    if (!anime) throw new EnmaError(404, 'anime.not.found');
+
+    if (anime.type === "anime") {
+        return {
+            response: {
+                type: anime.type.toLowerCase(),
+                slug: anime.slug,
+                id: anime.id
+            }
+        }
+    }
+
+    return {
+        data: anime
+    }
 }

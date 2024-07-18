@@ -7,15 +7,17 @@ class Download extends Enma {
     private BASE_URL: string = 'https://cdn-zenitsu-gamabunta.b-cdn.net/cf/hls/animes'
     private PATH: string = './assets';
 
-    public async now(name: string, episode: string, endpoint: string): Promise<void> {
+    public async now(name: string, episode: string, endpoint: string): Promise<boolean> {
         try {
-            if (fs.existsSync(`${this.PATH}/${name}/${episode}.m3u8`)) return;
+            if (fs.existsSync(`${this.PATH}/${name}/${episode}.m3u8`)) return true;
 
             const response = await this.client({ method: 'GET', endpoint });
             const content = await response.text();
 
-            if (response.status != 200) return;
+            if (response.status != 200) return false;
             this.dir(`${this.PATH}/${name}`, episode, content)
+
+            return true;
         } catch (e: any) {
             throw new EnmaError(404, 'episode.not.found')
         }

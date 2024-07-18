@@ -1,6 +1,7 @@
 import EnmaError from "@src/Errors/Enma";
 import Enma from "./Client";
 import Download from "./Download";
+import { DOMAIN } from "@src/utils/constants";
 
 export type Response = {
     code: number;
@@ -43,8 +44,6 @@ type Info = {
 
 class Anime extends Enma {
 
-    private readonly _DOMAIN: string = Bun.env.DOMAIN || `http://localhost:${Bun.env.PORT || 3000}`;
-
     public async get(id: number, page: number = 1): Promise<Response> {
         const response = await this.client({ method: 'GET', endpoint: `https://apiv3-prd.anroll.net/animes/${id}/episodes?page=${page}&order=asc` });
         const data: Response = await response.json();
@@ -64,7 +63,7 @@ class Anime extends Enma {
         data.data.forEach((i: Data) => {
             i.titulo_episodio = i.titulo_episodio.replace('N/A', 'Sem título')
             i.sinopse_episodio =  !i.sinopse_episodio.length  ? 'Episódio sem sinopse' : i.sinopse_episodio
-            i.link = `${this._DOMAIN}/episode/${i.anime.slug_serie}/${i.n_episodio}`
+            i.link = `${DOMAIN}/episode/${i.anime.slug_serie}/${i.n_episodio}`
             i.thumbnail = `https://static.anroll.net/images/animes/screens/${i.anime.slug_serie}/${i.n_episodio}.jpg`
         });
         return data
