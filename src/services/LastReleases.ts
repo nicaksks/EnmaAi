@@ -11,6 +11,7 @@ type Episode =  {
     premiere_last_ep: number;
     n_episodio: string;
     generate_id: string;
+    thumbnail?: string;
     anime: Anime;
 }
 
@@ -40,7 +41,15 @@ class LastReleases extends Enma {
     }
 
     private parse(data: string): Catalog[] {
-        return JSON.parse(data).props?.pageProps.data.data_releases ?? []
+        const catalog = JSON.parse(data).props;
+        if(catalog) return this.thumbnail(catalog.pageProps.data.data_releases);
+        
+        return []
+    }
+
+    private thumbnail(data: Catalog[]): Catalog[] {
+        data.forEach((i: Catalog) => i.episode.thumbnail = `https://static.anroll.net/images/animes/screens/${i.episode.anime.slug_serie}/${i.episode.n_episodio}.jpg`)
+        return data;
     }
 
 }
