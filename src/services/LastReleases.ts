@@ -1,5 +1,6 @@
 import EnmaError from "@src/Errors/Enma";
 import Enma from "./Client";
+import { DOMAIN } from "@src/utils/constants";
 
 type Catalog = {
     id_lancamento: number;
@@ -33,13 +34,6 @@ class LastReleases extends Enma {
         }
     }
 
-    private extractData(data: string): string {
-        return data
-            .split('__NEXT_DATA__')[1]
-            .split(`type="application/json">`)[1]
-            .split('</script>')[0]
-    }
-
     private parse(data: string): Catalog[] {
         const catalog = JSON.parse(data).props;
         if(catalog) return this.thumbnail(catalog.pageProps.data.data_releases);
@@ -48,7 +42,7 @@ class LastReleases extends Enma {
     }
 
     private thumbnail(data: Catalog[]): Catalog[] {
-        data.forEach((i: Catalog) => i.episode.thumbnail = `https://static.anroll.net/images/animes/screens/${i.episode.anime.slug_serie}/${i.episode.n_episodio}.jpg`)
+        data.forEach((i: Catalog) => i.episode.thumbnail = `${DOMAIN}/images/${i.episode.anime.slug_serie}/${i.episode.n_episodio}.jpg`)
         return data;
     }
 

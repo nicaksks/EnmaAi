@@ -2,6 +2,10 @@ import EnmaError from "@src/Errors/Enma";
 import Enma from "./Client";
 
 type Response = {
+    props: Props
+}
+
+type Props = {
     pageProps: PageProps;
     __N_SSG: boolean;
 }
@@ -40,12 +44,20 @@ class Calendar extends Enma {
 
     public async get(day: number): Promise<DataCalendar[]> {
         try {
-            const response = await this.client({ method: 'GET', endpoint: `https://www.anroll.net/_next/data/NwvruoSpnKp23iiCW3n4q/calendario/day/${day}.json` });
-            const data: Response = await response.json();
-            return data.pageProps.data_calendar;
+            const response = await this.client({ method: 'GET', endpoint: `https://www.anroll.net/calendario/day/${day}` });
+            const data = await response.text();
+
+            return this.parse(this.extractData(data));
         } catch (e: any) {
             throw new EnmaError()
         }
+    }
+
+    private parse(data: string): DataCalendar[] {
+        const calendar: Response = JSON.parse(data);
+        if(calendar) return calendar.props.pageProps.data_calendar;
+        
+        return []
     }
 
 }

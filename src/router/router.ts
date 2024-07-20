@@ -4,6 +4,8 @@ import Error from './routes/Error';
 
 export default express()
     .use(Enma.release)
+    .use(Enma.images)
+    .use(Enma.thumbnail)
     .use(Enma.calendar)
     .use(Enma.search)
     .use(Enma.anime)

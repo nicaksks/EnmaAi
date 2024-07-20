@@ -60,4 +60,16 @@ export default class Enma {
             res.status(e?.statusCode ?? 404).json({ error: e?.message ?? 'anime.not.found' });
         }
     }
+
+    @Path('get', '/images/:slug/:episode')
+    static async images(req: Request, res: Response) {
+        const { slug, episode } = req.params;
+        res.status(200).redirect(`https://static.anroll.net/images/animes/screens/${slug}/${episode}`);
+    }
+
+    @Path('get', '/images/:type/thumbnail/:slug')
+    static async thumbnail(req: Request, res: Response) {
+        const { type, slug } = req.params;
+        res.status(200).redirect(`https://static.anroll.net/images/${type}/capas/${slug}`);
+    }
 }

@@ -1,5 +1,6 @@
 import EnmaError from "@src/Errors/Enma";
 import Enma from "./Client";
+import { DOMAIN } from "@src/utils/constants";
 
 type Response = {
     code: number;
@@ -50,7 +51,7 @@ class Search extends Enma {
             'movie': 'filmes'
         };
 
-        return types[type] ? `https://static.anroll.net/images/${types[type]}/capas/${slug}.${format}` : 'https://i.imgur.com/sK5DKhL.png'
+        return types[type] ? `${DOMAIN}/images/${types[type]}/thumbnail/${slug}.${format}` : 'https://i.imgur.com/sK5DKhL.png'
     }
 
 }

@@ -64,7 +64,7 @@ class Anime extends Enma {
             i.titulo_episodio = i.titulo_episodio.replace('N/A', 'Sem título')
             i.sinopse_episodio =  !i.sinopse_episodio.length  ? 'Episódio sem sinopse' : i.sinopse_episodio
             i.link = `${DOMAIN}/episode/${i.anime.slug_serie}/${i.n_episodio}`
-            i.thumbnail = `https://static.anroll.net/images/animes/screens/${i.anime.slug_serie}/${i.n_episodio}.jpg`
+            i.thumbnail = `${DOMAIN}/images/${i.anime.slug_serie}/${i.n_episodio}.jpg`
         });
         return data
     }

@@ -13,4 +13,11 @@ export default abstract class Enma {
             },
         })
     }
+
+    protected extractData(data: string): string {
+        return data
+            .split('__NEXT_DATA__')[1]
+            .split(`type="application/json">`)[1]
+            .split('</script>')[0]
+    }
 }
