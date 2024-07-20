@@ -2,6 +2,8 @@
 | ------  | -------- | ------------ | --------------- | ------------ |
 | **GET** | **/api** | **/episode/:anime/:episode**   ||             |
 | **GET** | **/api** | **/release** |                 |              |
+| **GET** | **/api** | **/images/:slug/:episode**     |              |              |
+| **GET** | **/api** | **/images/:type/thumbail/:slug**|             |              |
 | **GET** | **/api** | **/calendar**| **?d=[int]**    |              |
 | **GET** | **/api** | **/anime**   | **?q=[string]** | **&p=[int]** |
 | **GET** | **/api** | **/search**  | **?q=[string]** | **&p=[int]** |
