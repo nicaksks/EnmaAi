@@ -1,7 +1,7 @@
 import EnmaError from "@src/Errors/Enma";
 import Enma from "./Client";
 import Download from "./Download";
-import { DOMAIN } from "@src/utils/constants";
+import { CDN, DOMAIN } from "@src/utils/constants";
 
 export type Response = {
     code: number;
@@ -64,7 +64,7 @@ class Anime extends Enma {
             i.titulo_episodio = i.titulo_episodio.replace('N/A', 'Sem título')
             i.sinopse_episodio =  !i.sinopse_episodio.length  ? 'Episódio sem sinopse' : i.sinopse_episodio
             i.link = `${DOMAIN}/episode/${i.anime.slug_serie}/${i.n_episodio}`
-            i.thumbnail = `${DOMAIN}/images/${i.anime.slug_serie}/${i.n_episodio}.jpg`
+            i.thumbnail = `${CDN}/images/${i.anime.slug_serie}/${i.n_episodio}.jpg`
         });
         return data
     }

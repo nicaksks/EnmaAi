@@ -9,6 +9,7 @@ import query from '@src/controllers/query';
 import params from '@src/controllers/params';
 import path from 'node:path';
 import Download from '@src/services/Download';
+import imageFormat from '@src/utils/imageFormat';
 
 export default class Enma {
 
@@ -64,12 +65,12 @@ export default class Enma {
     @Path('get', '/images/:slug/:episode')
     static async images(req: Request, res: Response) {
         const { slug, episode } = req.params;
-        res.status(200).redirect(`https://static.anroll.net/images/animes/screens/${slug}/${episode}`);
+        res.status(200).redirect(`https://static.anroll.net/images/animes/screens/${slug}/${imageFormat(episode)}`);
     }
 
     @Path('get', '/images/:type/thumbnail/:slug')
     static async thumbnail(req: Request, res: Response) {
         const { type, slug } = req.params;
-        res.status(200).redirect(`https://static.anroll.net/images/${type}/capas/${slug}`);
+        res.status(200).redirect(`https://static.anroll.net/images/${type}/capas/${imageFormat(slug)}`);
     }
 }

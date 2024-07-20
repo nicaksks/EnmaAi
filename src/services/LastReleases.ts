@@ -1,6 +1,6 @@
 import EnmaError from "@src/Errors/Enma";
 import Enma from "./Client";
-import { DOMAIN } from "@src/utils/constants";
+import { CDN } from "@src/utils/constants";
 
 type Catalog = {
     id_lancamento: number;
@@ -42,7 +42,7 @@ class LastReleases extends Enma {
     }
 
     private thumbnail(data: Catalog[]): Catalog[] {
-        data.forEach((i: Catalog) => i.episode.thumbnail = `${DOMAIN}/images/${i.episode.anime.slug_serie}/${i.episode.n_episodio}.jpg`)
+        data.forEach((i: Catalog) => i.episode.thumbnail = `${CDN}/images/${i.episode.anime.slug_serie}/${i.episode.n_episodio}.jpg`)
         return data;
     }
 
