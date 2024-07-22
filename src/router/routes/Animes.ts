@@ -1,17 +1,17 @@
 import type { Request, Response } from 'express';
 import Path from '@src/decorators/Path';
-import LastReleases from '@src/services/LastReleases';
-import Search from '@src/services/Search';
+import LastReleases from '@src/services/anroll/LastReleases';
+import Search from '@src/services/anroll/Search';
 import anime from '@src/utils/anime';
-import Calendar from '@src/services/Calendar';
+import Calendar from '@src/services/anroll/Calendar';
 import days from '@src/controllers/days';
 import query from '@src/controllers/query';
 import params from '@src/controllers/params';
 import path from 'node:path';
-import Download from '@src/services/Download';
+import Download from '@src/services/anroll/Download';
 import imageFormat from '@src/utils/imageFormat';
 
-export default class Enma {
+export default class Animes {
 
     @Path('get', '/anime', query)
     static async anime(req: Request, res: Response) {

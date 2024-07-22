@@ -1,7 +1,6 @@
-import Movie from '@src/services/Movie';
+import Movie from '@src/services/anroll/Movie';
 import getAnimeId from './getAnimeId'
-import Anime, { type Response } from "@src/services/Anime"
-import type { Data } from '@src/services/Search';
+import Anime, { type Response } from "@src/services/anroll/Anime"
 
 export default async (anime: string, page: number): Promise<Response> => {
     const data = await getAnimeId(anime);

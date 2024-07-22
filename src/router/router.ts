@@ -1,13 +1,20 @@
 import express from 'express';
-import Enma from './routes/Enma';
+import Animes from './routes/Animes';
+import Mangas from './routes/Mangas';
 import Error from './routes/Error';
 
-export default express()
-    .use(Enma.release)
-    .use(Enma.images)
-    .use(Enma.thumbnail)
-    .use(Enma.calendar)
-    .use(Enma.search)
-    .use(Enma.anime)
-    .use(Enma.episode)
+const router = express();
+
+export const anime = router
+    .use(Animes.release)
+    .use(Animes.images)
+    .use(Animes.thumbnail)
+    .use(Animes.calendar)
+    .use(Animes.search)
+    .use(Animes.anime)
+    .use(Animes.episode)
     .use(Error.notfound)
+
+
+export const manga = router
+    .use(Mangas.home)

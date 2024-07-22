@@ -1,7 +1,7 @@
 import express, { urlencoded, type Application } from 'express';
 import cors from './middlewares/cors';
 import rateLimit from './middlewares/rateLimit';
-import router from './router/group';
+import router from './router/group/group';
 
 class App {
 

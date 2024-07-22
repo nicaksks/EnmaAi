@@ -1,4 +1,4 @@
-import Search, { type Data } from '@src/services/Search';
+import Search, { type Data } from '@src/services/anroll/Search';
 import slug from './slug';
 import EnmaError from '@src/Errors/Enma';
 

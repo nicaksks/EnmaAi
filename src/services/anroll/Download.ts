@@ -1,4 +1,4 @@
-import EnmaError from '../Errors/Enma';
+import EnmaError from '@src/Errors/Enma';
 import Enma from './Client';
 import fs from 'node:fs';
 

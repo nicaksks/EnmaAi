@@ -1,5 +1,5 @@
 import express from 'express';
-import router from './router';
+import sub from './sub';
 
 export default express()
-    .use('/api', router)
+    .use('/api', sub)
