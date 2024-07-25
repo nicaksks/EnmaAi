@@ -7,7 +7,7 @@ import type { Response } from "./Anime";
 class Movie extends Enma {
     public async get(data: Data): Promise<Response> {
 
-        const episode = await Download.now(data.slug, "001", `https://cdn-zenitsu-gamabunta.b-cdn.net/cf/hls/movies/${data.slug}/movie.mp4/media-1/stream.m3u8`);
+        const episode = await Download.now(data.slug, "001", `movies/${data.slug}/movie.mp4/media-1/stream.m3u8`);
 
         return {
             code: 200,

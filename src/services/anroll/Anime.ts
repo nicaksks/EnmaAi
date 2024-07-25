@@ -70,7 +70,7 @@ class Anime extends Enma {
     }
 
     private download(data: Data[]): void {
-        data.forEach(async (i: Data) => await Download.now(i.anime.slug_serie, i.n_episodio, `https://cdn-zenitsu-gamabunta.b-cdn.net/cf/hls/animes/${i.anime.slug_serie}/${i.n_episodio}.mp4/media-1/stream.m3u8`))
+        data.forEach(async (i: Data) => await Download.now(i.anime.slug_serie, i.n_episodio, `animes/${i.anime.slug_serie}/${i.n_episodio}.mp4/media-1/stream.m3u8`))
     }
 }
 

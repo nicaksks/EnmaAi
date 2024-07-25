@@ -4,14 +4,14 @@ import fs from 'node:fs';
 
 class Download extends Enma {
 
-    private BASE_URL: string = 'https://cdn-zenitsu-gamabunta.b-cdn.net/cf/hls/animes'
+    private BASE_URL: string = 'https://cdn-zenitsu-gamabunta.b-cdn.net/cf/hls'
     private PATH: string = './assets';
 
     public async now(name: string, episode: string, endpoint: string): Promise<boolean> {
         try {
             if (fs.existsSync(`${this.PATH}/${name}/${episode}.m3u8`)) return true;
 
-            const response = await this.client({ method: 'GET', endpoint });
+            const response = await this.client({ method: 'GET', endpoint: `${this.BASE_URL}/${endpoint}` });
             const content = await response.text();
 
             if (response.status != 200) return false;
@@ -27,7 +27,7 @@ class Download extends Enma {
         try {
             if (fs.existsSync(`${this.PATH}/${name}/${episode}.m3u8`)) return;
 
-            const response = await this.client({ method: 'GET', endpoint: `${this.BASE_URL}/${name}/${episode}.mp4/media-1/stream.m3u8` });
+            const response = await this.client({ method: 'GET', endpoint: `${this.BASE_URL}/animes/${name}/${episode}.mp4/media-1/stream.m3u8` });
             const content = await response.text();
 
             if (response.status != 200) throw new EnmaError(response.status, response.statusText)
@@ -38,12 +38,12 @@ class Download extends Enma {
         }
     }
 
-    private dir(name: string, episode: string, content: string) {
+    private dir(name: string, episode: string, content: string): void {
         if (fs.existsSync(name)) return this.download(name, episode, content);
         fs.mkdir(name, () => this.download(name, episode, content))
     }
 
-    private download(path: string, episode: string, content: string) {
+    private download(path: string, episode: string, content: string): void {
         fs.writeFileSync(`${path}/${episode}.m3u8`, content);
     }
 
